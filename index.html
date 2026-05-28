@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miguel Monsivais — Portafolio de Proyectos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f2ed;
+  --ink: #0e0e0e;
+  --muted: #8a8078;
+  --border: #d6d0c8;
+  --accent: #c1440e;
+  --accent2: #1a3a5c;
+  --surface: #edeae4;
+  --white: #faf8f5;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.6;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s;
+  opacity: 0.5;
+}
+
+/* GRAIN */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  background: rgba(245,242,237,0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-right a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-right a:hover { color: var(--accent); }
+
+.nav-dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 140px 60px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-watermark {
+  position: absolute;
+  bottom: -40px;
+  left: -10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(120px, 20vw, 280px);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+
+.hero-title span {
+  color: var(--accent);
+  display: block;
+}
+
+.hero-desc {
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.75;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 48px;
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 48px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meta-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scroll-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.scroll-arrow {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  margin-left: auto;
+  animation: grow 1.5s ease infinite;
+}
+@keyframes grow {
+  0%,100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.4; }
+}
+
+/* PROJECTS SECTION */
+.projects {
+  padding: 120px 60px;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 80px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-label::before {
+  content: attr(data-num);
+  color: var(--accent);
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* PROJECT CARD */
+.project {
+  margin-bottom: 0;
+  border-top: 1px solid var(--border);
+}
+.project:last-child { border-bottom: 1px solid var(--border); }
+
+.project-header {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: start;
+  padding: 48px 0;
+  gap: 40px;
+  cursor: pointer;
+  transition: padding 0.3s ease;
+}
+.project-header:hover .project-title-main { color: var(--accent); }
+
+.project-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: var(--border);
+  line-height: 1;
+  transition: color 0.3s;
+}
+.project-header:hover .project-index { color: var(--accent); opacity: 0.3; }
+
+.project-title-area {}
+.project-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.project-title-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transition: color 0.3s;
+  margin-bottom: 12px;
+}
+.project-subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.project-toggle {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--muted);
+  transition: all 0.3s;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.project-header:hover .project-toggle {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.project.open .project-toggle {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: rotate(45deg);
+}
+
+/* PROJECT BODY */
+.project-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project.open .project-body { max-height: 3000px; }
+
+.project-inner {
+  padding: 0 0 72px 120px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 60px;
+  align-items: start;
+}
+
+/* TEXT CONTENT */
+.project-overview {
+  font-size: 19px;
+  line-height: 1.85;
+  color: var(--ink);
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+.project-overview strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.content-block {
+  margin-bottom: 36px;
+}
+
+.block-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.challenge-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.challenge-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.challenge-list li::before {
+  content: '—';
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.solution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--border);
+  line-height: 1;
+}
+.step-content {}
+.step-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* SIDEBAR */
+.project-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+
+.sidebar-card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tech-tag {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+
+.impact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.impact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.impact-item::before {
+  content: '↑';
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.context-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.context-row:last-child { border-bottom: none; }
+.context-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.context-val {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* VISUAL DIAGRAM */
+.project-diagram {
+  background: var(--ink);
+  padding: 32px;
+  margin-top: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.project-diagram::before {
+  content: 'PROCESS FLOW';
+  position: absolute;
+  top: 16px; right: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #333;
+}
+
+/* ABOUT STRIP */
+.about-strip {
+  background: var(--ink);
+  color: var(--white);
+  padding: 80px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-strip-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+.about-strip-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.about-strip-text {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #9a9590;
+  font-weight: 300;
+}
+.about-strip-text strong { color: var(--white); font-weight: 400; }
+
+.skills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.skill-pill {
+  border: 1px solid #333;
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #9a9590;
+  letter-spacing: 0.08em;
+  transition: all 0.2s;
+}
+.skill-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* CONTACT */
+.contact-section {
+  padding: 120px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.contact-left {}
+.contact-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(60px, 8vw, 100px);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.contact-big span { color: var(--accent); }
+.contact-tagline {
+  font-size: 18px;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 28px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 16px;
+  transition: all 0.25s;
+  background: var(--white);
+}
+.contact-link:hover {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+  padding-left: 40px;
+}
+.contact-link-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 2px;
+}
+.contact-link:hover .contact-link-label { color: #666; }
+.contact-link-arrow { font-size: 20px; transition: transform 0.2s; }
+.contact-link:hover .contact-link-arrow { transform: translateX(4px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-left {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.footer-right {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--border);
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .hero { padding: 100px 24px 48px; }
+  .hero-watermark { font-size: 100px; }
+  .projects { padding: 80px 24px; }
+  .project-header { grid-template-columns: 48px 1fr auto; gap: 16px; padding: 32px 0; }
+  .project-index { font-size: 36px; }
+  .project-inner { padding: 0 0 48px 64px; grid-template-columns: 1fr; gap: 32px; }
+  .project-sidebar { position: static; }
+  .about-strip { grid-template-columns: 1fr; padding: 60px 24px; gap: 32px; }
+  .contact-section { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; }
+  .hero-bottom { flex-direction: column; gap: 32px; align-items: flex-start; }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Miguel Monsivais</div>
+  <div class="nav-right">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre-mi">Perfil</a>
+    <a href="#contacto">Contacto</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-watermark">ING.</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Portafolio de Proyectos — 2024/2025</div>
+    <h1 class="hero-title">
+      Miguel<br>
+      <span>Monsivais</span>
+    </h1>
+    <p class="hero-desc">
+      Estudiante de Ingeniería Industrial en el Tec de Monterrey. Transformo procesos complejos en soluciones técnicas medibles — desde visión artificial en manufactura hasta automatización de datos logísticos.
+    </p>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-num">2</span>
+        <span class="meta-label">Proyectos</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-num">8vo</span>
+        <span class="meta-label">Semestre</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-num">IIS</span>
+        <span class="meta-label">Especialidad</span>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="proyectos">
+  <div class="section-label" data-num="01">Proyectos Seleccionados</div>
+
+  <!-- PROJECT 1: KIA -->
+  <div class="project" id="p1">
+    <div class="project-header" onclick="toggleProject('p1')">
+      <div class="project-index">01</div>
+      <div class="project-title-area">
+        <div class="project-category">Manufactura · Visión Artificial · IoT</div>
+        <div class="project-title-main">Sistema de Visión para<br>Detección de Defectos</div>
+        <div class="project-subtitle">Proyecto académico en colaboración con KIA — Tec de Monterrey, 2024–2025</div>
+      </div>
+      <div class="project-toggle">+</div>
+    </div>
+    <div class="project-body">
+      <div class="project-inner">
+        <div class="project-left">
+          <p class="project-overview">
+            Desarrollé un sistema de visión artificial <strong>end-to-end</strong> para detectar fallas en blanks metálicos dentro de una línea de manufactura. El reto era identificar defectos de forma autónoma, en tiempo real, con la precisión necesaria para operar en un entorno industrial real.
+          </p>
+
+          <div class="content-block">
+            <div class="block-title">El Problema</div>
+            <ul class="challenge-list">
+              <li>La inspección visual de blanks metálicos se realizaba manualmente, generando inconsistencias y fatiga del operador.</li>
+              <li>Los defectos no detectados a tiempo generaban desperdicios costosos en etapas posteriores del proceso.</li>
+              <li>No existía registro histórico automatizado de los defectos para análisis de calidad.</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <div class="block-title">Solución Desarrollada</div>
+            <div class="solution-steps">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-title">Captura de Datos</div>
+                  <div class="step-desc">Configuración de cámara industrial para la captura de imágenes de blanks metálicos en condiciones de línea de producción. Definición del pipeline de adquisición de datos.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-title">Preprocesamiento e Ingeniería de Datos</div>
+                  <div class="step-desc">Limpieza, etiquetado y augmentación del dataset de imágenes. Normalización y estructuración para entrenamiento de modelos de detección de objetos.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-title">Entrenamiento del Modelo YOLO</div>
+                  <div class="step-desc">Entrenamiento y validación de modelo YOLO para clasificación y localización de defectos en imágenes. Iteraciones de ajuste para alcanzar alta precisión en detección.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-title">Pipeline en Tiempo Real con Raspberry Pi</div>
+                  <div class="step-desc">Integración del modelo en una Raspberry Pi para inferencia en el borde. El sistema procesa imágenes en tiempo real y envía los datos de detección al sistema de monitoreo.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <div class="step-title">Dashboard de Monitoreo en Grafana</div>
+                  <div class="step-desc">Construcción de dashboards en Grafana con flujo de datos en tiempo real para visualizar defectos detectados, frecuencias y tendencias de calidad. El prototipo se configuró para escalabilidad en planta.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Contexto</div>
+            <div class="context-row">
+              <span class="context-key">Empresa</span>
+              <span class="context-val">KIA / ITESM</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Período</span>
+              <span class="context-val">2024 – 2025</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Sector</span>
+              <span class="context-val">Automotriz</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Rol</span>
+              <span class="context-val">Líder Técnico</span>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Stack Tecnológico</div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">YOLO</span>
+              <span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Grafana</span>
+              <span class="tech-tag">Industrial Cam</span>
+              <span class="tech-tag">Edge Computing</span>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Resultados</div>
+            <div class="impact-list">
+              <div class="impact-item">Alta precisión en detección de defectos alcanzada en prototipo</div>
+              <div class="impact-item">Sistema configurado para escalabilidad en línea de producción</div>
+              <div class="impact-item">Monitoreo en tiempo real operando desde dispositivo de bajo costo</div>
+              <div class="impact-item">Registro automatizado de defectos para análisis de calidad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 2: KOMATSU -->
+  <div class="project" id="p2">
+    <div class="project-header" onclick="toggleProject('p2')">
+      <div class="project-index">02</div>
+      <div class="project-title-area">
+        <div class="project-category">Logística · Python · Cadena de Suministro</div>
+        <div class="project-title-main">Diagnóstico Operativo y<br>Automatización Logística</div>
+        <div class="project-subtitle">Proyecto para Komatsu México — Optimización del proceso de refacciones, 2024</div>
+      </div>
+      <div class="project-toggle">+</div>
+    </div>
+    <div class="project-body">
+      <div class="project-inner">
+        <div class="project-left">
+          <p class="project-overview">
+            Desarrollé un diagnóstico estratégico y una solución de automatización de datos para <strong>Komatsu México</strong>, empresa líder en maquinaria pesada para minería, construcción y sector forestal. El objetivo: intervenir un proceso de suministro de refacciones altamente fragmentado para sentar las bases de un sistema de tracking en tiempo real.
+          </p>
+
+          <div class="content-block">
+            <div class="block-title">El Reto de Negocio</div>
+            <ul class="challenge-list">
+              <li>Un paro de operación por falta de una refacción representa pérdidas económicas críticas para los clientes industriales de Komatsu.</li>
+              <li>El incremento de aranceles con EE.UU. migró el suministro hacia Japón, extendiendo los tiempos de tránsito y complejizando la cadena de suministro global.</li>
+              <li>El tracking de refacciones dependía de llamadas, correos y hojas de cálculo — sin visibilidad centralizada ni autoservicio para el cliente.</li>
+              <li>La saturación reactiva del equipo interno impedía actividades de mayor valor estratégico.</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <div class="block-title">Solución en Dos Etapas</div>
+            <div class="solution-steps">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-title">Diagnóstico Estratégico y Benchmarking</div>
+                  <div class="step-desc">Modelé el proceso logístico actual mediante Business Model Canvas y swimlane diagrams. Realicé un benchmarking competitivo contra Caterpillar (parts.cat.com + WMSv2) y John Deere evaluando 6 dimensiones: portal de autoservicio, tracking en tiempo real, ETA dinámico, integración telemática, inteligencia artificial y visibilidad al cliente final.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-title">Motor de Clasificación de Compras en Python</div>
+                  <div class="step-desc">Desarrollé un algoritmo en Python que procesa registros históricos de órdenes de compra del ERP de Komatsu. El sistema limpia, categoriza y subcategoriza automáticamente cada orden según tipo de componente (motor, hidráulicos, consumibles) y urgencia logística — creando la base estructurada necesaria para un sistema de notificaciones automáticas.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-title">Metodologías Aplicadas</div>
+            <ul class="challenge-list">
+              <li>Business Model Canvas para análisis del modelo de negocio B2B de Komatsu.</li>
+              <li>Swimlane Diagrams para mapeo del flujo logístico AS-IS y detección de puntos de quiebre.</li>
+              <li>Benchmarking de procesos contra estándares de clase mundial en la industria.</li>
+              <li>Categorización inteligente de datos con Pandas y NLP básico para clasificación de texto.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Contexto</div>
+            <div class="context-row">
+              <span class="context-key">Empresa</span>
+              <span class="context-val">Komatsu México</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Período</span>
+              <span class="context-val">2024</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Sector</span>
+              <span class="context-val">Industria Pesada</span>
+            </div>
+            <div class="context-row">
+              <span class="context-key">Modelo</span>
+              <span class="context-val">B2B</span>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Stack Tecnológico</div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Biz Model Canvas</span>
+              <span class="tech-tag">Swimlane Diagrams</span>
+              <span class="tech-tag">Benchmarking</span>
+              <span class="tech-tag">ERP Data</span>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Impacto Generado</div>
+            <div class="impact-list">
+              <div class="impact-item">Reducción drástica del tiempo de auditoría y análisis de compras vs. proceso manual</div>
+              <div class="impact-item">Base técnica estructurada para transición de modelo reactivo a proactivo</div>
+              <div class="impact-item">Fundamento para automatizar consultas de estatus y liberar capacidad del equipo comercial</div>
+              <div class="impact-item">Hoja de ruta para implementar portal de autoservicio al cliente industrial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip" id="sobre-mi">
+  <div>
+    <div class="about-strip-title">
+      ING.<br>INDUS<em>TRIAL</em><br>& SISTEMAS
+    </div>
+  </div>
+  <div>
+    <p class="about-strip-text">
+      Estudiante de <strong>8vo semestre en el Tec de Monterrey</strong>. Me especializo en la intersección entre ingeniería industrial y tecnología — aplicando análisis de procesos, herramientas Lean y programación para resolver problemas reales en manufactura y logística.
+      <br><br>
+      Actualmente practicante de <strong>mejora de procesos en Grupo Casco Transportes</strong>. Inglés avanzado, orientado a resultados y con gusto por los sistemas bien diseñados.
+    </p>
+    <div class="skills-row">
+      <span class="skill-pill">Excel Avanzado</span>
+      <span class="skill-pill">Python</span>
+      <span class="skill-pill">Minitab</span>
+      <span class="skill-pill">5S / Lean</span>
+      <span class="skill-pill">Mapeo de Procesos</span>
+      <span class="skill-pill">Grafana</span>
+      <span class="skill-pill">YOLO</span>
+      <span class="skill-pill">Lucidchart</span>
+      <span class="skill-pill">Dashboards</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <div class="contact-left reveal">
+    <div class="contact-big">Hablemos<span>.</span></div>
+    <p class="contact-tagline">¿Tienes un proyecto, una práctica o una oportunidad? Estoy disponible.</p>
+  </div>
+  <div class="contact-links reveal">
+    <a class="contact-link" href="mailto:monsivaischavezmigueleduardo@gmail.com">
+      <div>
+        <span class="contact-link-label">Email</span>
+        monsivaischavezmigueleduardo@gmail.com
+      </div>
+      <span class="contact-link-arrow">→</span>
+    </a>
+    <a class="contact-link" href="tel:+528671579556">
+      <div>
+        <span class="contact-link-label">Teléfono</span>
+        +52 867 157 9556
+      </div>
+      <span class="contact-link-arrow">→</span>
+    </a>
+    <a class="contact-link" href="https://linkedin.com" target="_blank">
+      <div>
+        <span class="contact-link-label">LinkedIn</span>
+        Miguel Eduardo Monsivais Chávez
+      </div>
+      <span class="contact-link-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2025 Miguel Eduardo Monsivais Chávez · Monterrey, México</div>
+  <div class="footer-right">ING. INDUSTRIAL</div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, .project-header').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '16px';
+    cursor.style.height = '16px';
+    ring.style.width = '56px';
+    ring.style.height = '56px';
+    ring.style.opacity = '0.8';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '8px';
+    cursor.style.height = '8px';
+    ring.style.width = '36px';
+    ring.style.height = '36px';
+    ring.style.opacity = '0.5';
+  });
+});
+
+// Toggle projects
+function toggleProject(id) {
+  const p = document.getElementById(id);
+  const wasOpen = p.classList.contains('open');
+  document.querySelectorAll('.project').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) p.classList.add('open');
+}
+
+// Open first project by default
+toggleProject('p1');
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
